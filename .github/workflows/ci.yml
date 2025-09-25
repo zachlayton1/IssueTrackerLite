@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set image name
-        run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/issue-tracker-lite" >> $GITHUB_ENV
+        run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
 
       # optional: quick debug so logs show what's used
       - name: Show event/name
