@@ -5,6 +5,7 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch: {} # allow manual runs from Actions/CLI
 
 permissions:
   contents: read
@@ -34,7 +35,7 @@ jobs:
     needs: build-test
     runs-on: ubuntu-latest
 
-    # 👇 be explicit at job level
+    # be explicit at job level
     permissions:
       contents: read
       packages: write
@@ -42,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 🔧 STANDARDIZE: use the SAME name you used locally
+      # Use the SAME image name you pushed locally (hyphenated)
       - name: Set image name
         run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/issue-tracker-lite" >> $GITHUB_ENV
 
@@ -50,7 +51,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }} # ok to use actor here
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           logout: true
 
